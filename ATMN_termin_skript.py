@@ -56,7 +56,7 @@ if not os.path.exists(ICSDIR):
 
 if not os.path.isfile(MONTHS):
    isdate=0
-else
+else:
    isdate=1
 
 #define regex
@@ -70,7 +70,7 @@ Stammtisch_htm = urllib.request.urlopen("http://atmn.info/Stammtisch.htm")
 Stammtischlines_uml = Stammtisch_htm.readlines()
 Stammtisch_htm.close
 
-Stammtischlines= [l.decode('utf-8') for l in Stammtischlines_uml]
+Stammtischlines = [l.decode('windows-1252') for l in Stammtischlines_uml]
 
 outputheader=['BEGIN:VCALENDAR','PRODID:ATMN','VERSION:2.0','CALSCALE:GREGORIAN','METRO:PUBLISH','X-WR-CALNAME:ATMN-Stammtische'+time.strftime("%W")+'Woche','X-WR-TIMEZONE:Europe/Berlin','X-WR-CALDESC:ATMN Stammtisch' +time.strftime("%W") +' Woche']
 
@@ -83,8 +83,9 @@ if isdate == 1:
 else:
    log = open(MONTHS,"a+")
 
-for line in range(0,len(Stammtischlines)):
-   if(title.search(line)):
+for line in range(0,len(Stammtischlines)-1):
+   print(line)
+   if(title.search(Stammtischlines[line]) == 1):
       eventtitle = title.search(line)[0]
       eventdate  = date.search(line+2)
       
@@ -118,7 +119,7 @@ output.append('END:VCALENDAR')
 #output if the File
 print("output file created",file=sys.stderr)
 
-OUTPUTFILE=ICSDIR+"/output"+time.strftime("%Y%m%d")+".ics"):
+OUTPUTFILE=ICSDIR+"/output"+time.strftime("%Y%m%d")+".ics"
 if not os.path.isfile(OUTPUTFILE):
    print("writing file", file=sys.stderr)
    output_file = open(UOTPUTFILE,"w", encoding="utf-8")
