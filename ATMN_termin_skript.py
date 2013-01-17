@@ -51,3 +51,15 @@ else
    isdate=1
 
 #define regex
+date  = re.compile("([0-9]+)\.([0-9]+)\.([0-9]{4})")
+title = re.compile("([0-9]{3})\.")
+
+today = datetime.date.today()
+
+#download the webpage
+Stammtisch_htm = urllib.request.urlopen("http://atmn.info/Stammtisch.htm")
+Stammtischlines = Stammtisch_htm.readlines()
+Stammtisch_htm.close
+
+
+
