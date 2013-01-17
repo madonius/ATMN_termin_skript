@@ -61,7 +61,7 @@ else:
 
 #define regex
 date  = re.compile("([0-9]+)\.([0-9]+)\.([0-9]{4})")
-title = re.compile("([0-9]{3}\. Stammtisch)")
+title = re.compile("([0-9]{3}\.[ ]*Stammtisch)")
 
 today = datetime.date.today()
 
@@ -84,11 +84,25 @@ else:
    log = open(MONTHS,"a+")
 
 for line in range(0,len(Stammtischlines)-1):
-   print(line)
    if not (title.search(Stammtischlines[line]) is None ):
       eventtitle = title.search(Stammtischlines[line]).groups()[0]
-      eventdate  = date.search(Stammtischlines[line+2])
+
+      #take the next date you may find
+      found=0
+      offset=0
+      while(found==0):
+         if not (date.search(Stammtischlines[line+offset]) is None):
+            found=1
+         else:
+            offset+=1
       
+      if(offset > 3):
+         print("ACHTUNG!!! Ein Offset ist "+str(offset)+" bitte ueberpruefen Sie den Kalender auf falsche Daten")
+
+      eventdate=date.search(Stammtischlines[line+offset])
+
+      print(eventtitle)
+
       eventdate_day   = checkdigits(eventdate.groups()[0])
       eventdate_month = checkdigits(eventdate.groups()[1])
       eventdate_year  = eventdate.groups()[2]
