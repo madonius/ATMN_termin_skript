@@ -85,18 +85,18 @@ else:
 
 for line in range(0,len(Stammtischlines)-1):
    print(line)
-   if(title.search(Stammtischlines[line]) == 1):
-      eventtitle = title.search(line)[0]
-      eventdate  = date.search(line+2)
+   if not (title.search(Stammtischlines[line]) is None ):
+      eventtitle = title.search(Stammtischlines[line]).groups()[0]
+      eventdate  = date.search(Stammtischlines[line+2])
       
-      eventdate_day   = checkdigits(eventdate[0])
-      eventdate_month = checkdigits(eventdate[1])
-      eventdate_year  = eventdate[2]
+      eventdate_day   = checkdigits(eventdate.groups()[0])
+      eventdate_month = checkdigits(eventdate.groups()[1])
+      eventdate_year  = eventdate.groups()[2]
 
       if((isdate==0) or (log_mem.find(str(eventdate_year) + str(eventdate_month) + str(eventdate_day)) == -1)):
          output.append('BEGIN:VEVENT')
          output.append('DTSTART;TZID=Europe/Berlin:'+eventdate_year+eventdate_month+eventdate_day+'T190000Z')
-         output,append('DURATION:PT04H00M00S')
+         output.append('DURATION:PT04H00M00S')
          output.append('DTSTAMP:'+returndate())
          output.append('UID:atmn'+str(random.random()+random.random())+time.strftime("%W",time.gmtime())+"week@atmn.info")
          output.append('CREATED:'+returndate())
