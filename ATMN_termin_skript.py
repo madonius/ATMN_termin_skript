@@ -122,6 +122,6 @@ print("output file created",file=sys.stderr)
 OUTPUTFILE=ICSDIR+"/output"+time.strftime("%Y%m%d")+".ics"
 if not os.path.isfile(OUTPUTFILE):
    print("writing file", file=sys.stderr)
-   output_file = open(UOTPUTFILE,"w", encoding="utf-8")
+   output_file = open(OUTPUTFILE,"w", encoding="utf-8")
    output_file.write('\r\n'.join(output))
    output_file.close()
