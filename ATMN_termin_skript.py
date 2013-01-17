@@ -62,7 +62,7 @@ else:
 #define regex
 date   = re.compile("([0-9]+)\.([0-9]+)\.([0-9]{4})")
 title  = re.compile("([0-9]{3}\.[ ]*Stammtisch)")
-perion = re.compile("([0-9]{3})")
+period = re.compile("([0-9]{3})")
 
 today = datetime.date.today()
 
