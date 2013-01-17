@@ -60,8 +60,9 @@ else:
    isdate=1
 
 #define regex
-date  = re.compile("([0-9]+)\.([0-9]+)\.([0-9]{4})")
-title = re.compile("([0-9]{3}\.[ ]*Stammtisch)")
+date   = re.compile("([0-9]+)\.([0-9]+)\.([0-9]{4})")
+title  = re.compile("([0-9]{3}\.[ ]*Stammtisch)")
+perion = re.compile("([0-9]{3})")
 
 today = datetime.date.today()
 
@@ -114,11 +115,11 @@ for line in range(0,len(Stammtischlines)-1):
          output.append('DTSTAMP:'+returndate())
          output.append('UID:atmn'+str(random.random()+random.random())+time.strftime("%W",time.gmtime())+"week@atmn.info")
          output.append('CREATED:'+returndate())
-         output.append('DESCRIPTION: '+eventtitle)
+         output.append('SUMMARY: '+period.search(eventtitle).groups()[0]+". ATMN Stammtisch")
          output.append('LOCATION:Hotel und Tafernwirtschaft, Fischer, Bahnhofstrasse 4, 85221 Dachau')
          output.append('SEQUENCE:0')
          output.append('STATUS:TENTATIVE')
-         output.append('SUMMARY: Um vollmond rum treffen wir uns immer zu einem ungezwungenen Stammtisch')
+         output.append('DESCRIPTION: Um vollmond rum treffen wir uns immer zu einem ungezwungenen Stammtisch')
          output.append('TRANSP:OPAQUE')
          output.append('END:VEVENT')
 
